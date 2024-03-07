@@ -15,3 +15,35 @@ part of the array each recursive call considers.
 Analyse the time complexity of your implementation and give a $\Theta$ bound for
 its worst-case runtime. Add your answer, including your reasoning, to this
 markdown file.
+
+### Response
+
+The worst-case runtime for my mergesort implementation is $T(n) \in \Theta(n\log{n})$.
+There exist two major parts of the algorithms to break down: Splitting the array by
+multiples of 2, and merging the split arrays.
+
+Splitting the array set multiple variables in constant time alongside calling the merge
+function. The mergesort function calls the merge function $2^{\log{_2}{n} - i}$ for each
+iteration of the loops, where $2^{i{_n}} = n \implies i{_n} = \log{_2}{n}.$ Given this
+information, we can infer that the function iterates $\frac{n}{2^i}$ for each $i$.
+This ultimately results in $nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^i}T_1(i)$,
+where the mergesort complexity is multiplied by the complexity of the merge function, $T_1(i)$.
+
+The merge function iterates through the low bound to the middle bound of the array
+in the worst case scenario. The mergesort function determines the split of the array,
+as a power of 2, so as $i$ increases in the mergesort, so does the size of the split. 
+Because the array iterates only through half of the split, $T_1(i)$ is equal to $2^{i - 1}$.
+
+When combining this, we get<br>
+$nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^i}T_1(i)$<br>
+$= n(1) + \frac{n}{2}(1) + \frac{n}{4}(2^1) + ... + \frac{n}{2^i}(2^{i - 1})$<br>
+$= n + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
+
+We previously defined $i$ to be $log{_2}{n}$, so we know that there are $log{_2}{n}$
+terms in this equation.<br>
+
+$= 2(\frac{n}{2}) + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
+$= (\frac{n}{2} + \frac{n}{2}) + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
+$= \frac{n}{2} + \frac{n\log{_2}{n}}{2} \in \Theta(n\log{_n})$<br>
+
+Therefore, this implementation of the algorithm has a time complexity of $\Theta(n\log{_n})$.
