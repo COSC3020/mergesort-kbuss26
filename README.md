@@ -26,7 +26,7 @@ Splitting the array set multiple variables in constant time alongside calling th
 function. The mergesort function calls the merge function $2^{\log{_2}{n} - i}$ for each
 iteration of the loops, where $2^{i{_n}} = n \implies i{_n} = \log{_2}{n}.$ Given this
 information, we can infer that the function iterates $\frac{n}{2^i}$ for each $i$.
-This ultimately results in $nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^i}T_1(i)$,
+This ultimately results in $nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^{i_n}}T_1(i_n)$,
 where the mergesort complexity is multiplied by the complexity of the merge function, $T_1(i)$.
 
 The merge function iterates through the low bound to the middle bound of the array
@@ -37,11 +37,11 @@ Because the array iterates only through half of the split, $T_1(i)$ is equal to 
 In the base cases, where $i = 0$ or $i = 1$, both cases are constant time. Therefore, $T_1(0) = T_1(1) = 1$.
 
 When combining the functions, we get<br>
-$nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^i}T_1(i)$<br>
-$= n(1) + \frac{n}{2}(1) + \frac{n}{4}(2^1) + ... + \frac{n}{2^i}(2^{i - 1})$<br>
+$nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^{i_n}}T_1(i_n)$<br>
+$= n(1) + \frac{n}{2}(1) + \frac{n}{4}(2^1) + ... + \frac{n}{2^{i_n}}(2^{i_n - 1})$<br>
 $= n + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
 
-We previously defined $i$ to be $log{_2}{n}$, so we know that there are $log{_2}{n}$
+We previously defined $i_n$ to be $log{_2}{n}$, so we know that there are $log{_2}{n}$
 terms in this equation.<br>
 
 $= 2(\frac{n}{2}) + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
