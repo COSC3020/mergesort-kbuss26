@@ -34,7 +34,9 @@ in the worst case scenario. The mergesort function determines the split of the a
 as a power of 2, so as $i$ increases in the mergesort, so does the size of the split. 
 Because the array iterates only through half of the split, $T_1(i)$ is equal to $2^{i - 1}$.
 
-When combining this, we get<br>
+In the base cases, where $i = 0$ or $i = 1$, both cases are constant time. Therefore, $T_1(0) = T_1(1) = 1$.
+
+When combining the functions, we get<br>
 $nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^i}T_1(i)$<br>
 $= n(1) + \frac{n}{2}(1) + \frac{n}{4}(2^1) + ... + \frac{n}{2^i}(2^{i - 1})$<br>
 $= n + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
