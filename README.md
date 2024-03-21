@@ -18,34 +18,26 @@ markdown file.
 
 ### Response
 
-The worst-case runtime for my mergesort implementation is $T(n) \in \Theta(n\log{n})$.
+The worst-case runtime for my mergesort implementation is $T(n) \in \Theta(n^2\log{n})$.
 There exist two major parts of the algorithms to break down: Splitting the array by
 multiples of 2, and merging the split arrays.
 
 Splitting the array set multiple variables in constant time alongside calling the merge
-function. The mergesort function calls the merge function $2^{\log{_2}{n} - i}$ for each
-iteration of the loops, where $2^{i{_n}} = n \implies i{_n} = \log{_2}{n}.$ Given this
-information, we can infer that the function iterates $\frac{n}{2^i}$ for each $i$.
-This ultimately results in $nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^{i_n}}T_1(i_n)$,
-where the mergesort complexity is multiplied by the complexity of the merge function, $T_1(i)$.
+function in a nested for-loop. The mergesort function runs a while-loop to have splits of size
+$2^{i{_n}}$ for each iteration of the loop, where $2^{i{_n}} = n \implies i{_n} = \log{_2}{n}.$
 
-The merge function iterates through the low bound to the middle bound of the array
-in the worst case scenario. The mergesort function determines the split of the array,
-as a power of 2, so as $i$ increases in the mergesort, so does the size of the split. 
-Because the array iterates only through half of the split, $T_1(i)$ is equal to $2^{i - 1}$.
+Nested in the while-loop exists a for-loop that iterates through the splits of the array.
+For each split, the merge function gets called alongside constant time variables being set.
 
-In the base cases, where $i = 0$ or $i = 1$, both cases are constant time. Therefore, $T_1(0) = T_1(1) = 1$.
+The merge function iterates through the low bound to the middle bound of each split. 
+In the worst case scenario, however, each element would get shifted
+half of the array when merging. When combining the splits, the merge function works with the whole array
+for each iteration in the quicksort's while-loop. The merge function thus takes 
+$T(n) = (\frac{n}{2})^2$ time in its worst case complexity - $\frac{n}{2}$ for iterating
+through the elements in the array, and $\frac{n}{2}$ within the prior iteration to shift elements
+to their sorted position.
 
-When combining the functions, we get<br>
-$nT_1(0) + \frac{n}{2}T_1(1) + \frac{n}{4}T_1(2) + ... + \frac{n}{2^{i_n}}T_1(i_n)$<br>
-$= n(1) + \frac{n}{2}(1) + \frac{n}{4}(2^1) + ... + \frac{n}{2^{i_n}}(2^{i_n - 1})$<br>
-$= n + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
+Combining these factors together, the total runtime complexity is equal to
+$T(n) =  \frac{n}{2} \cdot \frac{n}{2} \cdot \log{_2}{n} = \frac{1}{4}n^2\log{_2}{n} \in \Theta(n^2\log{n})$.
 
-We previously defined $i_n$ to be $log{_2}{n}$, so we know that there are $log{_2}{n}$
-terms in this equation.<br>
-
-$= 2(\frac{n}{2}) + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
-$= (\frac{n}{2} + \frac{n}{2}) + \frac{n}{2} + \frac{n}{2} + ... + \frac{n}{2}$<br>
-$= \frac{n}{2} + \frac{n\log{_2}{n}}{2} \in \Theta(n\log{_n})$<br>
-
-Therefore, this implementation of the algorithm has a time complexity of $\Theta(n\log{_n})$.
+Therefore, this implementation of the algorithm has a time complexity of $\Theta(n^2\log{n})$.
