@@ -33,11 +33,11 @@ The merge function iterates through the low bound to the middle bound of each sp
 In the worst case scenario, however, each element would get shifted
 half of the array when merging. When combining the splits, the merge function works with the whole array
 for each iteration in the quicksort's while-loop. The merge function thus takes 
-$T(n) = (\frac{n}{2})^2$ time in its worst case complexity - $\frac{n}{2}$ for iterating
-through the elements in the array, and $\frac{n}{2}$ within the prior iteration to shift elements
-to their sorted position.
+$T(n) = (\frac{n}{2}) \cdot n$ time in its worst case complexity - $\frac{n}{2}$ for iterating
+through half of the elements in the each array splits, and $n$ for the
+nested shift function that goes through linear time.
 
 Combining these factors together, the total runtime complexity is equal to
-$T(n) =  \frac{n}{2} \cdot \frac{n}{2} \cdot \log{_2}{n} = \frac{1}{4}n^2\log{_2}{n} \in \Theta(n^2\log{n})$.
+$T(n) =  \frac{n}{2} \cdot n \cdot log{_2}{n} = \frac{1}{2}n^2\log{_2}{n} \in \Theta(n^2\log{n})$.
 
 Therefore, this implementation of the algorithm has a time complexity of $\Theta(n^2\log{n})$.
